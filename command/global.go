@@ -27,7 +27,8 @@ func Run(command string) {
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		fmt.Printf("command failed: %s\n", command)
-		panic(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
 
@@ -39,7 +40,8 @@ func RunMuted(command string) {
 	//cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		fmt.Printf("command failed: %s\n", command)
-		panic(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
 

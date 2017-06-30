@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"fabric.git.nautile.tech/publicrepo/deployer/command"
+	"git.nautile.tech/publicrepo/deployer/command"
 	"github.com/codegangsta/cli"
 )
 

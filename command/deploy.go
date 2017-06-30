@@ -14,7 +14,7 @@ var (
 
 func CmdDeploy(c *cli.Context) {
 	// Check config json
-	configPath := "config/env-config.json"
+	configPath := GetConfigPath()
 	checkConfigJson := Exists(configPath)
 	if checkConfigJson == false {
 		fmt.Println("The config.json file is not present in the current folder")

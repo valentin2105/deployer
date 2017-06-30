@@ -22,7 +22,7 @@ func Check(e error) {
 }
 
 func GetConfigPath() string {
-	return "config/env.config.json"
+	return "config/env-config.json"
 }
 
 // Exec shell command

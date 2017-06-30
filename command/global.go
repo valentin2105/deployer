@@ -80,6 +80,7 @@ func GetConfigKey(configKey string) string {
 	dec.Decode(&data)
 	jq := jsonq.NewQuery(data)
 	brutJson, err := jq.String("config", configKey)
+	fmt.Printf(brutJson)
 	configKeyStr := string(brutJson)
 	return configKeyStr
 }

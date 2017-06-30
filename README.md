@@ -11,7 +11,7 @@
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/Valentin Ouvrard/deployer
+$ go get -d git.nautile.tech/publicrepo/deployer
 ```
 
 ## Contribution

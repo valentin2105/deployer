@@ -33,6 +33,8 @@ func CmdDeploy(c *cli.Context) {
 		fmt.Printf("The environment %s doesn't exist in composes/ path. \n", environmentPassed)
 	}
 	// Set all config from json
+	image := GetConfigKey("image")
+	fmt.Println(image)
 
 	// Deploy stack
 }

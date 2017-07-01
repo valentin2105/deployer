@@ -36,7 +36,6 @@ func CmdDeploy(c *cli.Context) {
 	// Set all config from json
 	parseDest := fmt.Sprintf("composes/%s.yaml", environmentPassed)
 	ParseJsonAndTemplate(stackPassed, parseDest)
-	os.Exit(0)
 	// Deploy stack
 	cmdPull := fmt.Sprintf("docker-compose -f %s pull", parseDest)
 	Run(cmdPull)

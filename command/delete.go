@@ -35,7 +35,8 @@ func CmdDelete(c *cli.Context) {
 	// delete stack
 	parseDest := fmt.Sprintf("composes/%s.yaml", environmentPassed)
 	cmdDown := fmt.Sprintf("docker-compose -f %s down", parseDest)
-	RunMuted(cmdDown)
+	fmt.Sprintf(cmdDown)
+	Run(cmdDown)
 	s.Stop()
 
 }

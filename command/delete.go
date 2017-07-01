@@ -1,8 +1,41 @@
 package command
 
-import "github.com/codegangsta/cli"
+import (
+	"fmt"
+	"os"
+	"time"
+
+	"github.com/briandowns/spinner"
+	"github.com/codegangsta/cli"
+)
 
 func CmdDelete(c *cli.Context) {
-	// Write your code here
+	// Check config json
+	configPath := GetConfigPath()
+	checkConfigJson := Exists(configPath)
+	if checkConfigJson == false {
+		fmt.Println("The config.json file is not present in the current folder")
+		os.Exit(1)
+	}
+	// New Spinner
+	s := spinner.New(spinner.CharSets[14], 100*time.Millisecond) // Build our new spinner
+	s.Start()                                                    // Start the spinner
+	// Check docker-compose
+	v := "docker-compose version"
+	RunMuted(v)
+	// Check docker run
+	x := "docker version"
+	RunMuted(x)
+	// Check args and set variables (localhost/dev/integration/master)
+	environmentPassed := os.Args[2]
+	stackPassed := fmt.Sprintf("composes/%s.tmpl.yaml", environmentPassed)
+	if Exists(stackPassed) == false {
+		fmt.Printf("The environment composes/%s.tmpl.yaml doesn't exist. \n", environmentPassed)
+	}
+	// delete stack
+	parseDest := fmt.Sprintf("composes/%s.yaml", environmentPassed)
+	cmdDown := fmt.Sprintf("docker-compose -f %s down", parseDest)
+	RunMuted(cmdDown)
+	s.Stop()
 
 }

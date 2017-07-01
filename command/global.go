@@ -15,7 +15,7 @@ import (
 )
 
 func GetConfigPath() string {
-	return "config/env-config.json"
+	return "config.json"
 }
 
 // Check error

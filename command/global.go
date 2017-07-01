@@ -14,15 +14,15 @@ import (
 	"github.com/tbruyelle/hipchat-go/hipchat"
 )
 
+func GetConfigPath() string {
+	return "config/env-config.json"
+}
+
 // Check error
 func Check(e error) {
 	if e != nil {
 		panic(e)
 	}
-}
-
-func GetConfigPath() string {
-	return "config/env-config.json"
 }
 
 // Exec shell command
@@ -84,7 +84,41 @@ func GetConfigKey(configKey string) string {
 	return configKeyStr
 }
 
-func ParseTemplate(from string, to string) {
+func flatMap(src map[string]interface{}, baseKey, sep string, dest map[string]string) {
+	for key, val := range src {
+		if len(baseKey) != 0 {
+			key = baseKey + sep + key
+		}
+		switch val := val.(type) {
+		case map[string]interface{}:
+			flatMap(val, key, sep, dest)
+		case string:
+			dest[key] = val
+		case fmt.Stringer:
+			dest[key] = val.String()
+		default:
+			//TODO: You may need to handle ARRAY/SLICE
+
+			//simply convert to string using `Sprintf`
+			//modify as you needed.
+			dest[key] = fmt.Sprintf("%v", val)
+		}
+	}
+}
+
+func ParseJsonAndTemplate(from string, to string) {
+	configPath := GetConfigPath()
+	b, _ := ioutil.ReadFile(configPath) // just pass the file name
+
+	var m map[string]interface{}
+	err := json.Unmarshal([]byte(b), &m)
+	if err != nil {
+		log.Fatal(err)
+	}
+	mm := make(map[string]string)
+	flatMap(m, "", "", mm)
+	fmt.Println(mm)
+
 	t, err := template.ParseFiles(from)
 	Check(err)
 	f, err := os.Create(to)
@@ -92,15 +126,7 @@ func ParseTemplate(from string, to string) {
 		log.Println("create file: ", err)
 		return
 	}
-	// Helm template config
-	config := map[string]string{
-		"siteURL":       "",
-		"siteMD5":       "",
-		"rootPassword":  "",
-		"volumePathDB":  "",
-		"volumePathWeb": "",
-	}
-	err = t.Execute(f, config)
+	err = t.Execute(f, mm)
 	Check(err)
 	f.Close()
 }

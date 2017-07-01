@@ -20,6 +20,7 @@ func CmdDeploy(c *cli.Context) {
 		fmt.Println("The config.json file is not present in the current folder")
 		os.Exit(1)
 	}
+
 	// Check docker-compose
 	v := "docker-compose version"
 	RunMuted(v)
@@ -28,13 +29,15 @@ func CmdDeploy(c *cli.Context) {
 	RunMuted(x)
 	// Check args and set variables (localhost/dev/integration/master)
 	environmentPassed := os.Args[2]
-	stackPassed := fmt.Sprintf("composes/%s.tmpl", environmentPassed)
+	stackPassed := fmt.Sprintf("composes/%s.tmpl.yaml", environmentPassed)
 	if Exists(stackPassed) == false {
-		fmt.Printf("The environment %s doesn't exist in composes/ path. \n", environmentPassed)
+		fmt.Printf("The environment composes/%s.tmpl.yaml doesn't exist. \n", environmentPassed)
 	}
 	// Set all config from json
-	image := GetConfigKey("image")
-	fmt.Println(image)
-
+	parseDest := fmt.Sprintf("composes/%s.yaml", environmentPassed)
+	ParseJsonAndTemplate(stackPassed, parseDest)
+	os.Exit(0)
 	// Deploy stack
+	cmdPull := fmt.Sprintf("docker-compose -f %s pull", parseDest)
+	Run(cmdPull)
 }

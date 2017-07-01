@@ -33,12 +33,12 @@ func CmdDeploy(c *cli.Context) {
 	RunMuted(x)
 	// Check args and set variables (localhost/dev/integration/master)
 	environmentPassed := os.Args[2]
-	stackPassed := fmt.Sprintf("composes/%s.tmpl.yaml", environmentPassed)
+	stackPassed := fmt.Sprintf("compose/%s.tmpl.yaml", environmentPassed)
 	if Exists(stackPassed) == false {
-		fmt.Printf("The environment composes/%s.tmpl.yaml doesn't exist. \n", environmentPassed)
+		fmt.Printf("The environment compose/%s.tmpl.yaml doesn't exist. \n", environmentPassed)
 	}
 	// Set all config from json
-	parseDest := fmt.Sprintf("composes/%s.yaml", environmentPassed)
+	parseDest := fmt.Sprintf("compose/%s.yaml", environmentPassed)
 	ParseJsonAndTemplate(stackPassed, parseDest)
 	// Deploy stack
 	cmdPull := fmt.Sprintf("docker-compose -f %s pull", parseDest)

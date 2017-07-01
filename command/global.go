@@ -57,19 +57,6 @@ func Exists(name string) bool {
 	return !os.IsNotExist(err)
 }
 
-// Notify Hipchat room (value from config.json)
-func HipchatNotify(message string) bool {
-	room := GetConfigKey("hipchatRoom")
-	token := GetConfigKey("hipchatToken")
-	c := hipchat.NewClient(token)
-	notifRq := &hipchat.NotificationRequest{Message: message}
-	_, err := c.Room.Notification(room, notifRq)
-	if err != nil {
-		panic(err)
-	}
-	return true
-}
-
 func GetConfigKey(configKey string) string {
 	configPath := GetConfigPath()
 	b, err := ioutil.ReadFile(configPath) // just pass the file name
@@ -129,4 +116,17 @@ func ParseJsonAndTemplate(from string, to string) {
 	err = t.Execute(f, mm)
 	Check(err)
 	f.Close()
+}
+
+// Notify Hipchat room (value from config.json)
+func HipchatNotify(message string) bool {
+	room := GetConfigKey("hipchatRoom")
+	token := GetConfigKey("hipchatToken")
+	c := hipchat.NewClient(token)
+	notifRq := &hipchat.NotificationRequest{Message: message}
+	_, err := c.Room.Notification(room, notifRq)
+	if err != nil {
+		panic(err)
+	}
+	return true
 }

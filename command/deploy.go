@@ -3,7 +3,9 @@ package command
 import (
 	"fmt"
 	"os"
+	"time"
 
+	"github.com/briandowns/spinner"
 	"github.com/codegangsta/cli"
 )
 
@@ -20,7 +22,9 @@ func CmdDeploy(c *cli.Context) {
 		fmt.Println("The config.json file is not present in the current folder")
 		os.Exit(1)
 	}
-
+	// New Spinner
+	s := spinner.New(spinner.CharSets[14], 100*time.Millisecond) // Build our new spinner
+	s.Start()                                                    // Start the spinner
 	// Check docker-compose
 	v := "docker-compose version"
 	RunMuted(v)
@@ -38,5 +42,8 @@ func CmdDeploy(c *cli.Context) {
 	ParseJsonAndTemplate(stackPassed, parseDest)
 	// Deploy stack
 	cmdPull := fmt.Sprintf("docker-compose -f %s pull", parseDest)
-	Run(cmdPull)
+	RunMuted(cmdPull)
+	cmdUp := fmt.Sprintf("docker-compose -f %s up -d", parseDest)
+	RunMuted(cmdUp)
+	s.Stop()
 }

@@ -14,7 +14,7 @@ var (
 	realEnvironment   string
 )
 
-func CmdDeploy(c *cli.Context) {
+func CmdAdd(c *cli.Context) {
 	// Check config json
 	configPath := GetConfigPath()
 	checkConfigJson := Exists(configPath)

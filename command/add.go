@@ -40,10 +40,13 @@ func CmdAdd(c *cli.Context) {
 	// Set all config from json
 	parseDest := fmt.Sprintf("compose/%s.yml", environmentPassed)
 	ParseJsonAndTemplate(stackPassed, parseDest)
-	// Deploy stack
+	// Pull & Deploy stack
 	cmdPull := fmt.Sprintf("docker-compose -f %s pull", parseDest)
 	RunMuted(cmdPull)
 	cmdUp := fmt.Sprintf("docker-compose -f %s up -d", parseDest)
 	RunMuted(cmdUp)
+	// Notifiy Hipchat of the deployment
+	hipchatMessage := fmt.Sprintf("%s just deployed !", environmentPassed)
+	HipchatNotify(hipchatMessage)
 	s.Stop()
 }

@@ -58,19 +58,18 @@ func Exists(name string) bool {
 	return !os.IsNotExist(err)
 }
 
-func GetConfigKey(configKey string) string {
+func GetJsonKey(key string, value string) string {
 	configPath := GetConfigPath()
 	b, err := ioutil.ReadFile(configPath) // just pass the file name
 	Check(err)
-
 	str := string(b) // convert content to a 'string'
 	data := map[string]interface{}{}
 	dec := json.NewDecoder(strings.NewReader(str))
 	dec.Decode(&data)
 	jq := jsonq.NewQuery(data)
-	brutJson, err := jq.String("config", configKey)
-	configKeyStr := string(brutJson)
-	return configKeyStr
+	brutJson, err := jq.String(key, value)
+	result := string(brutJson)
+	return result
 }
 
 func flatMap(src map[string]interface{}, baseKey, sep string, dest map[string]string) {
@@ -118,8 +117,8 @@ func ParseJsonAndTemplate(from string, to string) {
 
 // Notify Hipchat room (value from config.json)
 func HipchatNotify(message string) bool {
-	room := GetConfigKey("hipchatRoom")
-	token := GetConfigKey("hipchatToken")
+	room := GetJsonKey("config", "hipchatRoom")
+	token := GetJsonKey("config", "hipchatToken")
 	fmt.Sprintf(token)
 	c := hipchat.NewClient(token)
 	notifRq := &hipchat.NotificationRequest{Message: message}

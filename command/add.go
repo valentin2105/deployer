@@ -45,6 +45,9 @@ func CmdAdd(c *cli.Context) {
 	RunMuted(cmdPull)
 	cmdUp := fmt.Sprintf("docker-compose -f %s up -d", parseDest)
 	RunMuted(cmdUp)
+	// Run hipothetical Hook
+	hookPath := GetJsonKey(environmentPassed, "Hook")
+	fmt.Sprintln(hookPath)
 	// Notifiy Hipchat of the deployment
 	//hipchatMessage := fmt.Sprintf("%s just deployed !", environmentPassed)
 	//HipchatNotify(hipchatMessage)

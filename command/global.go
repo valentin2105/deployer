@@ -119,7 +119,7 @@ func ParseJsonAndTemplate(from string, to string) {
 func HipchatNotify(message string) bool {
 	room := GetConfigKey("hipchatRoom")
 	token := GetConfigKey("hipchatToken")
-	fmt.Sprintf("token: %s / room : %s", token, room)
+	fmt.Sprintf(token)
 	c := hipchat.NewClient(token)
 	notifRq := &hipchat.NotificationRequest{Message: message}
 	err, _ := c.Room.Notification(room, notifRq)

@@ -21,7 +21,7 @@ func GetConfigPath() string {
 // Check error
 func Check(e error) {
 	if e != nil {
-		fmt.Sprintln(e)
+		fmt.Println(e)
 		os.Exit(1)
 	}
 }
@@ -44,8 +44,8 @@ func RunMuted(command string) {
 	args := strings.Split(command, " ")
 	cmd := exec.Command(args[0], args[1:]...)
 	//cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
-		cmd.Stderr = os.Stderr
 		fmt.Printf("command failed: %s\n", command)
 		fmt.Println(err)
 		os.Exit(1)
@@ -62,6 +62,7 @@ func GetConfigKey(configKey string) string {
 	configPath := GetConfigPath()
 	b, err := ioutil.ReadFile(configPath) // just pass the file name
 	Check(err)
+
 	str := string(b) // convert content to a 'string'
 	data := map[string]interface{}{}
 	dec := json.NewDecoder(strings.NewReader(str))

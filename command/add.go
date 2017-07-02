@@ -46,7 +46,7 @@ func CmdAdd(c *cli.Context) {
 	cmdUp := fmt.Sprintf("docker-compose -f %s up -d", parseDest)
 	RunMuted(cmdUp)
 	// Notifiy Hipchat of the deployment
-	hipchatMessage := fmt.Sprintf("%s just deployed !", environmentPassed)
-	HipchatNotify(hipchatMessage)
+	//hipchatMessage := fmt.Sprintf("%s just deployed !", environmentPassed)
+	//HipchatNotify(hipchatMessage)
 	s.Stop()
 }

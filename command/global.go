@@ -21,7 +21,8 @@ func GetConfigPath() string {
 // Check error
 func Check(e error) {
 	if e != nil {
-		panic(e)
+		fmt.Sprintln(e)
+		os.Exit(1)
 	}
 }
 
@@ -85,7 +86,6 @@ func flatMap(src map[string]interface{}, baseKey, sep string, dest map[string]st
 			dest[key] = val.String()
 		default:
 			//TODO: You may need to handle ARRAY/SLICE
-
 			//simply convert to string using `Sprintf`
 			//modify as you needed.
 			dest[key] = fmt.Sprintf("%v", val)
@@ -96,7 +96,6 @@ func flatMap(src map[string]interface{}, baseKey, sep string, dest map[string]st
 func ParseJsonAndTemplate(from string, to string) {
 	configPath := GetConfigPath()
 	b, _ := ioutil.ReadFile(configPath) // just pass the file name
-
 	var m map[string]interface{}
 	err := json.Unmarshal([]byte(b), &m)
 	if err != nil {
@@ -104,8 +103,6 @@ func ParseJsonAndTemplate(from string, to string) {
 	}
 	mm := make(map[string]string)
 	flatMap(m, "", "", mm)
-	//fmt.Println(mm)
-
 	t, err := template.ParseFiles(from)
 	Check(err)
 	f, err := os.Create(to)

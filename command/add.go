@@ -19,23 +19,23 @@ func CmdAdd(c *cli.Context) {
 	configPath := GetConfigPath()
 	checkConfigJson := Exists(configPath)
 	if checkConfigJson == false {
-		fmt.Println("The config.json file is not present in the current folder")
+		fmt.Println("There is no config.json in the current folder")
 		os.Exit(1)
 	}
 	// New Spinner
 	s := spinner.New(spinner.CharSets[14], 100*time.Millisecond) // Build our new spinner
 	s.Start()                                                    // Start the spinner
-	// Check docker-compose
-	v := "docker-compose version"
-	RunMuted(v)
 	// Check docker run
 	x := "docker version"
 	RunMuted(x)
+	// Check docker-compose
+	v := "docker-compose version"
+	RunMuted(v)
 	// Check args and set variables (localhost/dev/integration/master)
 	environmentPassed := os.Args[2]
 	stackPassed := fmt.Sprintf("compose/%s.tmpl.yml", environmentPassed)
 	if Exists(stackPassed) == false {
-		fmt.Printf("The environment compose/%s.tmpl.yml doesn't exist. \n", environmentPassed)
+		fmt.Printf("The file compose/%s.tmpl.yml doesn't exist. \n", environmentPassed)
 	}
 	// Set all config from json
 	parseDest := fmt.Sprintf("compose/%s.yml", environmentPassed)
@@ -46,7 +46,7 @@ func CmdAdd(c *cli.Context) {
 	cmdUp := fmt.Sprintf("docker-compose -f %s up -d", parseDest)
 	RunMuted(cmdUp)
 	// Notifiy Hipchat of the deployment
-	//hipchatMessage := fmt.Sprintf("%s just deployed !", environmentPassed)
-	//HipchatNotify(hipchatMessage)
+	hipchatMessage := fmt.Sprintf("%s just deployed !", environmentPassed)
+	HipchatNotify(hipchatMessage)
 	s.Stop()
 }

@@ -46,7 +46,7 @@ func RunMuted(command string) {
 	//cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		fmt.Printf("command failed: %s\n", command)
-		fmt.Println(cmd.Stderr)
+		fmt.Println(os.Stderr)
 		os.Exit(1)
 	}
 }

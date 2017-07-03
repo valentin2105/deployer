@@ -48,7 +48,7 @@ func CmdAdd(c *cli.Context) {
 	RunMuted(cmdUp)
 
 	// Run hipothetical Hook
-	hookPath := GetJsonKey(environmentPassed, "Hookie")
+	hookPath := GetJsonKey(environmentPassed, "Hook")
 	if hookPath != "" {
 		Run(hookPath)
 	}

@@ -8,6 +8,7 @@ go-build:
   stage: build
   script:
     - go get -u github.com/gpmgo/gopm
+    - go get -u git.nautile.tech/publicrepo/deployer
     - ls -alh
     - gopm get
     - go build

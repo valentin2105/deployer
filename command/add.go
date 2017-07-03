@@ -48,8 +48,10 @@ func CmdAdd(c *cli.Context) {
 	RunMuted(cmdUp)
 
 	// Run hipothetical Hook
-	hookPath := GetJsonKey(environmentPassed, "Hook")
-	fmt.Println(hookPath)
+	hookPath := GetJsonKey(environmentPassed, "Hookie")
+	if hookPath != "" {
+		Run(hookPath)
+	}
 	// Notifiy Hipchat of the deployment
 	vhost := GetJsonKey(environmentPassed, "Vhost")
 	hostname, _ := os.Hostname()

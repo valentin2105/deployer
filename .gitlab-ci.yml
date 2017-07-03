@@ -8,6 +8,7 @@ go-build:
   stage: build
   script:
     - go get -u github.com/gpmgo/gopm
+    - ls -alh
     - gopm get
     - go build
   artifacts:

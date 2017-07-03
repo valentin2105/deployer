@@ -50,6 +50,8 @@ func CmdAdd(c *cli.Context) {
 	// Run hipothetical Hook
 	hookPath := GetJsonKey(environmentPassed, "Hook")
 	if hookPath != "" {
+		// Wait a little before hook
+		time.Sleep(2)
 		Run(hookPath)
 	}
 	// Notifiy Hipchat of the deployment

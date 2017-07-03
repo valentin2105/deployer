@@ -12,6 +12,6 @@ go-build:
     - ls -alh
     - gopm get
     - go build
-  artifacts:
-    paths:
-      - deployer
+#   artifacts:
+#     paths:
+#       - deployer

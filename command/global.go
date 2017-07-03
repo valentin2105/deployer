@@ -116,7 +116,7 @@ func ParseJsonAndTemplate(from string, to string) {
 }
 
 // Notify Hipchat room (value from config.json)
-func HipchatNotify(message string) bool {
+func HipchatNotify(message string) {
 	room := GetJsonKey("config", "hipchatRoom")
 	token := GetJsonKey("config", "hipchatToken")
 	fmt.Sprintf(token)
@@ -124,7 +124,5 @@ func HipchatNotify(message string) bool {
 	notifRq := &hipchat.NotificationRequest{Message: message}
 	err, _ := c.Room.Notification(room, notifRq)
 	if err != nil {
-		//panic(err)
 	}
-	return true
 }

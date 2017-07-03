@@ -3,4 +3,4 @@ github.com/briandowns/spinner =
 github.com/codegangsta/cli = 
 github.com/jmoiron/jsonq = 
 github.com/tbruyelle/hipchat-go = 
-
+git.nautile.tech/publicrepo/deployer = 

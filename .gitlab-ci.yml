@@ -7,6 +7,8 @@ go-build:
   - docker:dind
   stage: build
   script:
+    - go get -u github.com/gpmgo/gopm
+    - gopm get
     - go build
   artifacts:
     paths:

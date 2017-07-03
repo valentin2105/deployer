@@ -124,7 +124,7 @@ func HipchatNotify(message string) bool {
 	notifRq := &hipchat.NotificationRequest{Message: message}
 	err, _ := c.Room.Notification(room, notifRq)
 	if err != nil {
-		panic(err)
+		//panic(err)
 	}
 	return true
 }

@@ -12,6 +12,7 @@ import (
 var (
 	environmentPassed string
 	realEnvironment   string
+	hipchatMessage    string
 )
 
 func CmdAdd(c *cli.Context) {
@@ -32,7 +33,7 @@ func CmdAdd(c *cli.Context) {
 	v := "docker-compose version"
 	RunMuted(v)
 	// Check args and set variables (localhost/dev/integration/master)
-	environmentPassed := os.Args[2]
+	//environmentPassed := os.Args[2]
 	stackPassed := fmt.Sprintf("compose/%s.tmpl.yml", environmentPassed)
 	if Exists(stackPassed) == false {
 		fmt.Printf("The file compose/%s.tmpl.yml doesn't exist. \n", environmentPassed)
@@ -45,11 +46,14 @@ func CmdAdd(c *cli.Context) {
 	RunMuted(cmdPull)
 	cmdUp := fmt.Sprintf("docker-compose -f %s up -d", parseDest)
 	RunMuted(cmdUp)
+
 	// Run hipothetical Hook
 	hookPath := GetJsonKey(environmentPassed, "Hook")
-	fmt.Sprintln(hookPath)
+	fmt.Println(hookPath)
 	// Notifiy Hipchat of the deployment
-	//hipchatMessage := fmt.Sprintf("%s just deployed !", environmentPassed)
-	//HipchatNotify(hipchatMessage)
+	vhost := GetJsonKey(environmentPassed, "Vhost")
+	hostname, _ := os.Hostname()
+	hipchatMessage := fmt.Sprintf("http://%s just deployed ! (%s)", vhost, hostname)
+	HipchatNotify(hipchatMessage)
 	s.Stop()
 }

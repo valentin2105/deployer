@@ -33,7 +33,7 @@ func CmdAdd(c *cli.Context) {
 	v := "docker-compose version"
 	RunMuted(v)
 	// Check args and set variables (localhost/dev/integration/master)
-	//environmentPassed := os.Args[2]
+	environmentPassed := os.Args[2]
 	stackPassed := fmt.Sprintf("compose/%s.tmpl.yml", environmentPassed)
 	if Exists(stackPassed) == false {
 		fmt.Printf("The file compose/%s.tmpl.yml doesn't exist. \n", environmentPassed)

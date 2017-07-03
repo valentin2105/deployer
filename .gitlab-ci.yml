@@ -1,0 +1,13 @@
+variables:
+  DOCKER_DRIVER: overlay
+
+go-build:
+  image: golang:latest
+  services:
+  - docker:dind
+  stage: build
+  script:
+    - go build
+  artifacts:
+    paths:
+      - deployer

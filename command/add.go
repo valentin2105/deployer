@@ -3,6 +3,7 @@ package command
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/briandowns/spinner"
@@ -53,8 +54,14 @@ func CmdAdd(c *cli.Context) {
 
 	// Run hipothetical Hook
 	hookPath := GetJsonKey(environmentPassed, "Hook")
+	hookWaitTimeStr := GetJsonKey(environmentPassed, "HookWaitTime")
 	if hookPath != "" {
 		// Wait a little before hook
+		if hookWaitTimeStr != "" {
+			i, _ := strconv.Atoi(hookWaitTimeStr)
+			cmdSleep := fmt.Sprintf("sleep %s", i)
+			Run(cmdSleep)
+		}
 		Run(hookPath)
 	}
 	// Notifiy Hipchat of the deployment

@@ -3,7 +3,6 @@ package command
 import (
 	"fmt"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/briandowns/spinner"
@@ -58,8 +57,7 @@ func CmdAdd(c *cli.Context) {
 	if hookPath != "" {
 		// Wait a little before hook
 		if hookWaitTimeStr != "" {
-			i, _ := strconv.Atoi(hookWaitTimeStr)
-			cmdSleep := fmt.Sprintf("sleep %s", i)
+			cmdSleep := fmt.Sprintf("sleep %s", hookWaitTimeStr)
 			Run(cmdSleep)
 		}
 		Run(hookPath)

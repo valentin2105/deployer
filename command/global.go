@@ -102,7 +102,7 @@ func ParseJsonAndTemplate(from string, to string) {
 		log.Fatal(err)
 	}
 	mm := make(map[string]string)
-	flatMap(m, "", ".", mm)
+	flatMap(m, "", "_", mm)
 	t, err := template.ParseFiles(from)
 	Check(err)
 	fmt.Println(mm)

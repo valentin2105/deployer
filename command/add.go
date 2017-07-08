@@ -39,7 +39,7 @@ func CmdAdd(c *cli.Context) {
 		fmt.Printf("The file compose/%s.tmpl.yml doesn't exist. \n", environmentPassed)
 	}
 	// Set all config from json
-	parseDest := fmt.Sprintf("compose/%s.yml", environmentPassed)
+	parseDest := fmt.Sprintf(".generated/%s.yml", environmentPassed)
 	ParseJsonAndTemplate(stackPassed, parseDest)
 	// Pull & Deploy stack
 	cmdPull := fmt.Sprintf("docker-compose -f %s pull", parseDest)

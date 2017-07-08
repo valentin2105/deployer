@@ -38,6 +38,10 @@ func CmdAdd(c *cli.Context) {
 	if Exists(stackPassed) == false {
 		fmt.Printf("The file compose/%s.tmpl.yml doesn't exist. \n", environmentPassed)
 	}
+	// Check .generated folder exist
+	if _, err := os.Stat(".generated"); os.IsNotExist(err) {
+		Run("mkdir .generated")
+	}
 	// Set all config from json
 	parseDest := fmt.Sprintf(".generated/%s.yml", environmentPassed)
 	ParseJsonAndTemplate(stackPassed, parseDest)

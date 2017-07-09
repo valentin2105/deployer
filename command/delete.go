@@ -33,7 +33,7 @@ func CmdDelete(c *cli.Context) {
 		fmt.Printf("The environment compose/%s.tmpl.yml doesn't exist. \n", environmentPassed)
 	}
 	// delete stack
-	parseDest := fmt.Sprintf("compose/%s.yml", environmentPassed)
+	parseDest := fmt.Sprintf(".generated/%s.yml", environmentPassed)
 	cmdDown := fmt.Sprintf("docker-compose -f %s down", parseDest)
 	RunMuted(cmdDown)
 	s.Stop()

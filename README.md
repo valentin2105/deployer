@@ -9,7 +9,7 @@ a Go docker-compose multi-stages deployer.
 To install, use `go get`:
 
 ```bash
-$ go get -d git.nautile.tech/publicrepo/deployer
+$ go get -d github.com/valentin2105/deployer
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ GLOBAL OPTIONS:
 
 ## Contribution
 
-1. Fork ([https://github.com/Valentin Ouvrard/deployer/fork](https://github.com/Valentin Ouvrard/deployer/fork))
+1. Fork ([https://github.com/valentin2105/deployer/fork](https://github.com/valentin2105/deployer/fork))
 1. Create a feature branch
 1. Commit your changes
 1. Rebase your local changes against the master branch
@@ -50,4 +50,4 @@ GLOBAL OPTIONS:
 
 ## Author
 
-[Valentin Ouvrard](https://github.com/Valentin Ouvrard)
+[Valentin Ouvrard](https://github.com/valentin2105)

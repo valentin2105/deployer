@@ -5,12 +5,15 @@
 ## Description
 a Go docker-compose multi-stages deployer.
 
-## Install
+## Build
 
-To install, use `go get`:
+To build it, use `go get` and `gopm` for dependencies :
 
 ```bash
 $ go get -d github.com/valentin2105/deployer
+$ go get -u github.com/gpmgo/gopm
+$ cd $GOPATH/src/github.com/valentin2105/deployer && $GOPATH/bin/gopm get 
+$ go build && ./deployer -h
 ```
 
 ## Example

@@ -1,4 +1,5 @@
 # deployer
+[![Build Status](https://travis-ci.org/valentin2105/deployer.svg?branch=master)](https://travis-ci.org/valentin2105/deployer)
 
 ![](https://i.imgur.com/Je8FbDT.png)
 

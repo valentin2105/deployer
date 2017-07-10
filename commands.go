@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"git.nautile.tech/publicrepo/deployer/command"
 	"github.com/codegangsta/cli"
+	"github.com/valentin2105/deployer/command"
 )
 
 var GlobalFlags = []cli.Flag{}

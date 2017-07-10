@@ -38,6 +38,7 @@ GLOBAL OPTIONS:
    --version, -v  print the version
 ```
 
+![](http://i.imgur.com/ngkdqr0.gif)
 
 ## Contribution
 

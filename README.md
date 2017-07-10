@@ -13,7 +13,73 @@ To install, use `go get`:
 $ go get -d github.com/valentin2105/deployer
 ```
 
+## Example
+
+#### First, you need a config.json file :
+```
+{
+   “config”:
+ {
+     “WpImage”: “wordpress:latest”,
+     “DBImage”: “mysql:latest”,
+     “NginxImage”: “nginx:latest”
+ },
+   “dev”:
+ {
+     “Tag”: “dev”,
+     “Vhost”: “dev.example.com”,
+     "DBPassword": "AnyGoodPassword",
+     "DBName": "mydevsite",
+     "ExpositionPort": "8001:80"
+ },
+   “prod”:
+ {
+     “Tag”: “integration”,
+     “Vhost”: “integration.example.com”,
+     "DBPassword": "AnyBetterPassword",
+     "DBName": "myprodsite",
+     "IPv6Network": "ff00:c210::/64",
+     "IPv6": "ff00:c210::121"
+ }
+}
+```
+#### Then, you can create your compose/dev.tmpl.yml file :
+```
+version: '2'
+services:
+  wordpress:
+    image: {{.config_WpImage}}
+    ports:
+      - {{.dev_ExpositionPort}}
+    volumes:
+      - /var/www/html 
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: {{.dev_DBName}}
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: {{.dev_DBPassword}}
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: {{.config_DBImage}}
+    volumes:
+      - /var/lib/mysql
+    environment:
+      MYSQL_DATABASE: {{.dev_DBName}}
+      MYSQL_ROOT_PASSWORD: {{.dev_DBPassword}}
+```
+#### Finally, you can deploy your dev environement :
+```
+deployer add dev
+```
+
 ## Usage
+
+![](http://i.imgur.com/ngkdqr0.gif)
+
 ```bash
 NAME:
    deployer
@@ -37,8 +103,6 @@ GLOBAL OPTIONS:
    --help, -h     show help
    --version, -v  print the version
 ```
-
-![](http://i.imgur.com/ngkdqr0.gif)
 
 ## Contribution
 

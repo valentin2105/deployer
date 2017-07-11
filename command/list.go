@@ -1,8 +1,16 @@
 package command
 
-import "github.com/codegangsta/cli"
+import (
+	"fmt"
+	"os"
+
+	"github.com/codegangsta/cli"
+)
 
 func CmdList(c *cli.Context) {
-	// Write your code here
+	environmentPassed := os.Args[2]
+	stackPath := fmt.Sprintf(".generated/%s.yml", environmentPassed)
+	cmdList := fmt.Sprintf("docker-compose -f %s ps", stackPath)
+	Run(cmdList)
 
 }

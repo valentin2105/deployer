@@ -11,6 +11,5 @@ func CmdList(c *cli.Context) {
 	environmentPassed := os.Args[2]
 	stackPath := fmt.Sprintf(".generated/%s.yml", environmentPassed)
 	cmdList := fmt.Sprintf("docker-compose -f %s ps", stackPath)
-	Run(cmdList)
-
+	RunMuted(cmdList)
 }

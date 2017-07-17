@@ -1,5 +1,6 @@
 # deployer
 [![Build Status](https://travis-ci.org/valentin2105/deployer.svg?branch=master)](https://travis-ci.org/valentin2105/deployer)
+[![Go Report Card](https://goreportcard.com/badge/github.com/valentin2105/deployer)](https://goreportcard.com/report/github.com/valentin2105/deployer)
 
 ![](https://i.imgur.com/Je8FbDT.png)
 

@@ -1,6 +1,7 @@
 # deployer
 [![Build Status](https://travis-ci.org/valentin2105/deployer.svg?branch=master)](https://travis-ci.org/valentin2105/deployer)
 [![Go Report Card](https://goreportcard.com/badge/github.com/valentin2105/deployer)](https://goreportcard.com/report/github.com/valentin2105/deployer)
+[![Releases](https://coderelease.io/badge/valentin2105/deployer)](https://coderelease.io/github/repository/valentin2105/deployer)
 
 ![](https://i.imgur.com/Je8FbDT.png)
 
@@ -18,6 +19,7 @@ To build it, use `go get` and `gopm` for dependencies :
 $ go get -d github.com/valentin2105/deployer
 $ go get -u github.com/gpmgo/gopm
 $ cd $GOPATH/src/github.com/valentin2105/deployer && $GOPATH/bin/gopm get 
+$ cd $GOPATH/src/github.com/valentin2105/deployer && $GOPATH/bin/gopm get
 $ go build && ./deployer -h
 ```
 
@@ -60,7 +62,7 @@ services:
     ports:
       - {{.dev_ExpositionPort}}
     volumes:
-      - /var/www/html 
+      - /var/www/html
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: {{.dev_DBName}}
